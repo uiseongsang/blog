@@ -31,6 +31,7 @@ Put = /api/post/4
 
 ## Delete Test
 Delete - /api/post/4
+
 1.삭제하기
 ![](https://velog.velcdn.com/images/uiseongsang/post/ca03a2ac-bc03-485d-9d78-6e214829a0b9/image.png)
 2.삭제확인
