@@ -50,7 +50,7 @@ public class PostService {
         // 해당 포스트가 DB에 있는지 체크
         Post post = findPost(id);
 
-        if(validatePassword(post,requestDto) == true) {
+        if(validatePassword(post.getPassword(),requestDto.getPassword()) == true) {
             // 내용 수정
             post.update(requestDto);
         } else {
@@ -59,11 +59,11 @@ public class PostService {
         return id;
     }
 
-    public Long deletePost(Long id, PostRequestDto requestDto) {
+    public Long deletePost(Long id, String password) {
         // 해당 포스트가 DB에 있는지 체크
         Post post = findPost(id);
 
-        if(validatePassword(post,requestDto) == true) {
+        if(validatePassword(post.getPassword(),password) == true) {
             // 내용 삭제
             postRepository.delete(post);
         } else {
@@ -72,8 +72,8 @@ public class PostService {
         return id;
     }
 
-    private Boolean validatePassword(Post post, PostRequestDto requestDto){
-        if(requestDto.getPassword().equals(post.getPassword())) {
+    private Boolean validatePassword(String password1, String password2){
+        if(password1.equals(password2)) {
             return true;
         } else {
             return false;
