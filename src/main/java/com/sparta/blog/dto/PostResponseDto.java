@@ -13,6 +13,7 @@ public class PostResponseDto {
     private String author;
     private LocalDateTime createAt;
     private LocalDateTime modifiedAt;
+    private Boolean success;
 
     public PostResponseDto(Post post){
         this.id = post.getId();
@@ -21,5 +22,9 @@ public class PostResponseDto {
         this.author = post.getAuthor();
         this.createAt = post.getCreatedAt();
         this.modifiedAt = post.getModifiedAt();
+    }
+
+    public PostResponseDto(Boolean success){
+        this.success = success;
     }
 }

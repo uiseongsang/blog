@@ -1,7 +1,7 @@
 package com.sparta.blog.controller;
 
-import com.sparta.blog.dto.PostRequestDto;
 import com.sparta.blog.dto.PostResponseDto;
+import com.sparta.blog.dto.PostRequestDto;
 import com.sparta.blog.service.PostService;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,12 +33,13 @@ public class PostController {
     }
 
     @PutMapping("/post/{id}")
-    public Long updatePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto){
+    public PostResponseDto updatePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto){
         return postService.updatePost(id,requestDto);
     }
 
     @DeleteMapping("/post/{id}")
-    public Long deletePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto){
-        return postService.deletePost(id,requestDto.getPassword());
+    public PostResponseDto deletePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto){
+        postService.deletePost(id,requestDto.getPassword());
+        return new PostResponseDto(true);
     }
 }

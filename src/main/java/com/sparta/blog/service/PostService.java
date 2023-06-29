@@ -34,19 +34,19 @@ public class PostService {
 
     public List<PostResponseDto> getPosts() {
         // DB 조회
-        return postRepository.findAll().stream().map(PostResponseDto::new).toList();
+        return postRepository.findAllByOrderByCreatedAtDesc().stream().map(PostResponseDto::new).toList();
+
     }
 
     public PostResponseDto getPost(Long id, PostRequestDto requestDto) {
         // 해당 포스트가 DB에 있는지 체크
         Post post = findPost(id);
 
-        PostResponseDto postResponseDto =  new PostResponseDto(post);
-        return postResponseDto;
+        return new PostResponseDto(post);
     }
 
     @Transactional
-    public Long updatePost(Long id, PostRequestDto requestDto) {
+    public PostResponseDto updatePost(Long id, PostRequestDto requestDto) {
         // 해당 포스트가 DB에 있는지 체크
         Post post = findPost(id);
 
@@ -56,10 +56,11 @@ public class PostService {
         } else {
             System.out.println("비번이 틀립니다");
         }
-        return id;
+
+        return new PostResponseDto(post);
     }
 
-    public Long deletePost(Long id, String password) {
+    public void deletePost(Long id, String password) {
         // 해당 포스트가 DB에 있는지 체크
         Post post = findPost(id);
 
@@ -69,7 +70,6 @@ public class PostService {
         } else {
             System.out.println("비번이 틀립니다");
         }
-        return id;
     }
 
     private Boolean validatePassword(String password1, String password2){
